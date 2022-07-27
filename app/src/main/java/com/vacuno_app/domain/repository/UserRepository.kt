@@ -11,4 +11,10 @@ interface UserRepository {
     suspend fun saveUser(user: User)
 
     fun getUsers(liveData: MutableLiveData<List<User>>)
+    fun getUsersFromFarm(liveData: MutableLiveData<List<User>>)
+
+    fun getUserByEmail(email: String, liveData: MutableLiveData<User>)
+    fun addUserToFarm(uid: String, rol: String)
+
+
 }

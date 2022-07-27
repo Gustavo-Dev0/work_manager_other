@@ -43,6 +43,7 @@ public class MenuFragment extends Fragment {
         ImageButton sheetsBtn = binding.sheetsButton;
         ImageButton alarmsBtn = binding.alarmsButton;
         ImageButton productionBtn = binding.milkButton;
+        ImageButton reportsBtn = binding.reportsButton;
 
         NavController navController = Navigation.findNavController(view);
 
@@ -64,6 +65,10 @@ public class MenuFragment extends Fragment {
 
         productionBtn.setOnClickListener(view1 -> {
             navController.navigate(R.id.productionFragment);
+        });
+
+        reportsBtn.setOnClickListener(view1 -> {
+            navController.navigate(R.id.reportFragment);
         });
 
     }

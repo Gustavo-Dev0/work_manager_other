@@ -1,11 +1,14 @@
 package com.vacuno_app.domain.model;
 
+import com.google.firebase.database.ServerValue;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Sheet {
     public String id, code, name, race, dateBirth, father, mather, weight, age, sex, status;
+    public Long date;
 
     public Sheet(){}
 
@@ -113,15 +116,16 @@ public class Sheet {
     public Map<String, Object> toMap(){
         Map<String, Object> map = new HashMap<>();
         map.put("name", getName());
-        map.put("code", getCode());
+        //map.put("code", getCode());
         map.put("race", getRace());
         map.put("dateBirth", getDateBirth());
         map.put("father", getFather());
         map.put("mather", getMather());
         map.put("weight", getWeight());
         map.put("age", getAge());
-        map.put("sex", getSex());
-        map.put("status", getStatus());
+        map.put("sex", "F");
+        map.put("status", "A");
+        map.put("date", ServerValue.TIMESTAMP);
         return map;
     }
 

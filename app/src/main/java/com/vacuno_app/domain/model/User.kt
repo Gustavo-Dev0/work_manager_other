@@ -8,7 +8,7 @@ data class User (
     var name: String? = null,
     var lastName: String? = null,
     var status: String? = null,
-    var farmId: String? = null,
+    var role: String? = null,
     var password: String? = null
 ) {
     fun toUserFromFirebase(): UserFromFirebase {
@@ -17,7 +17,6 @@ data class User (
             name = name,
             lastName = lastName,
             status = status,
-            farmId = farmId
         )
     }
 }

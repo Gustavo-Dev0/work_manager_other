@@ -1,5 +1,7 @@
 package com.vacuno_app.data.remote.repository
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -10,8 +12,8 @@ import com.vacuno_app.register.RegisterState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+
 
 class LoginRepositoryImpl(
     private val firebaseAuth: FirebaseAuth

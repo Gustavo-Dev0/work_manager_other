@@ -17,12 +17,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacuno_app.R;
-import com.vacuno_app.utils.BackupList;
 import com.vacuno_app.domain.model.Sheet;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHolder> {
     Context contex;
@@ -85,7 +82,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHol
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifyDataSetChanged")
     public void filtered(String txt){
         int len = txt.length();
         if(len == 0){
@@ -99,15 +96,15 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHol
                 list.clear();
                 list.addAll(coll);
             }else{
-                /*list.clear();
+                list.clear();
                 for (Service dt: BackupList.listServiceBackup) {
                     if(dt.getName().toLowerCase().contains(txt.toLowerCase())){
                         list.add(dt);
                     }
-                }*/
+                }
             }
         }
         notifyDataSetChanged();
 
-    }
+    }*/
 }

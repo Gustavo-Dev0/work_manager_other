@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252216392973",
+    "firebase_url": "https://vacunoapp-7d17f-default-rtdb.firebaseio.com",
+    "project_id": "vacunoapp-7d17f",
+    "storage_bucket": "vacunoapp-7d17f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252216392973:android:81f1a7a208da39afe2c444",
+        "android_client_info": {
+          "package_name": "com.vacuno_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252216392973-d167qe3tb2lroaal69ddid1psd56e4g5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vacuno_app",
+            "certificate_hash": "a54076c393439c9ec18cd5f4a8c1ba2839f69816"
+          }
+        },
+        {
+          "client_id": "252216392973-u483epnr2tial6cbckjt56lsmnjvu2bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBT2ScUNrdOgQL4Mv2Id9zLGHCjGl_CDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252216392973-u483epnr2tial6cbckjt56lsmnjvu2bf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

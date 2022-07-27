@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.vacuno_app.MainActivity
 import com.vacuno_app.databinding.ActivityLoginBinding
 import com.vacuno_app.register.RegisterActivity
+import com.vacuno_app.select_farm.SelectFarmActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -37,7 +38,8 @@ class LoginActivity(): AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         if(viewModel.getCurrentUser() != null){
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, SelectFarmActivity::class.java)
+            intent.putExtra("userId", viewModel.getCurrentUser()?.uid)
             startActivity(intent)
             this@LoginActivity.finish()
         }
@@ -114,7 +116,8 @@ class LoginActivity(): AppCompatActivity() {
             viewModel.state.collect {
                 if(it.isLoading != null && !it.isLoading!!){
                     if(it.isLogged){
-                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        val intent = Intent(applicationContext, SelectFarmActivity::class.java)
+                        intent.putExtra("userId", viewModel.getCurrentUser()?.uid)
                         startActivity(intent)
                         this@LoginActivity.finish()
                     }else{

@@ -21,41 +21,25 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar usuario"
+                android:text="Agregar hoja de vida"
                 android:textColor="#0C0C0C" />
 
             <EditText
-                android:id="@+id/addUserNameEditText"
+                android:id="@+id/addSheetCodeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nombres"
+                android:hint="Codigo"
                 android:inputType="textPersonName" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/addSheetNameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/addLastNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".50"
-                    android:ems="10"
-                    android:hint="Apellido01"
-                    android:inputType="textPersonName" />
-
-                <EditText
-                    android:id="@+id/addLastName2EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".50"
-                    android:ems="10"
-                    android:hint="Apellido02"
-                    android:inputType="textPersonName" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -63,10 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="0dp"
-                android:text="Seleccionar rol:"
+                android:text="Seleccionar raza:"
                 android:textColor="#0C0C0C" />
+
             <Spinner
-                android:id="@+id/addRolSpinner"
+                android:id="@+id/addSheetRaceSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="00dp"
@@ -75,24 +60,79 @@
                 android:layout_weight=".60" />
 
             <EditText
-                android:id="@+id/addEmailEditText"
+                android:id="@+id/addSheetDateBirthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:ems="10"
+                android:hint="Fecha de nacimiento"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/addSheetFatherEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:ems="10"
+                android:hint="Padre"
+                android:inputType="textPersonName" />
+
+
+
+
+            <EditText
+                android:id="@+id/addSheetMatherEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="Correo"
                 android:ems="10"
-                android:hint="Correo"
-                android:inputType="textEmailAddress" />
+                android:hint="Madre"
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/addPasswordEditText"
+                android:id="@+id/addSheetWeightEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Contraseña"
-                android:inputType="textPassword" />
+                android:hint="Peso"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/addSheetAgeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Edad"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="00dp"
+                android:layout_marginRight="0dp"
+                android:text="Sexo:"
+                android:textColor="#0C0C0C" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/addMSheetRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Macho" />
+
+                <RadioButton
+                    android:id="@+id/addHSheetRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hembra" />
+            </RadioGroup>
 
             <CheckBox
-                android:id="@+id/addStatusCheckBox"
+                android:id="@+id/addSheetStatusCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -104,14 +144,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addSaveButton"
+                    android:id="@+id/addSheetSaveButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="Guardar" />
 
                 <Button
-                    android:id="@+id/addCancelButton"
+                    android:id="@+id/addSheetCancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"

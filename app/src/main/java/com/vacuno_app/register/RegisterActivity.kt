@@ -99,12 +99,12 @@ class RegisterActivity : AppCompatActivity() {
 
         if(nameET.text.toString().isBlank()){
             isValid = false
-            passwordConfirmET.error = "Name required"
+            nameET.error = "Name required"
         }
 
         if(lastNameET.text.toString().isBlank()){
             isValid = false
-            passwordConfirmET.error = "Last name required"
+            lastNameET.error = "Last name required"
         }
 
 

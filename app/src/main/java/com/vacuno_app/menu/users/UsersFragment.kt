@@ -14,14 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.vacuno_app.R
 import com.vacuno_app.databinding.FragmentUsersBinding;
 import com.vacuno_app.domain.model.User
 import com.vacuno_app.menu.users.adapter.UserAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 
 @AndroidEntryPoint
@@ -151,9 +148,7 @@ class UsersFragment: Fragment() {
 
             //Firebase save here
 
-            if(add(emailET.text.toString())){
-                dialog.dismiss()
-            }
+            add(emailET.text.toString(), rolT)
             //end save
 
         }
@@ -165,32 +160,22 @@ class UsersFragment: Fragment() {
     }
 
 
+    private fun add(email: String, rol: String){
 
-    /*
-    public Integer generateId(){
-
-        int idInt = Integer.parseInt(idCount);
-        idInt++;
-        Map<String, Object> idMap = new HashMap<>();
-        idMap.put("users", idInt+"");
-        db.getReference("idCont").updateChildren(idMap);
-        return idInt;
-    }*/
-
-    private fun add(email: String): Boolean{
-
-        val user: User? = viewModel.getUserByEmail(email)
-
-        if(user == null){
-
-            Toast.makeText(context, "Usuario no registrado", Toast.LENGTH_SHORT).show()
-
-            return false
+        val userEmailLiveData = viewModel.getUserByEmail(email)
+        userEmailLiveData.observe(viewLifecycleOwner) { user ->
+            if(user == null){
+                Toast.makeText(context, "Usuario no registrado", Toast.LENGTH_SHORT).show()
+                //return false
+            }else if(user.uid != "0"){
+                //return user
+                viewModel.addUserToFarm(user.uid!!, rol)
+                viewModel.addFarmToUser(user.uid!!)
+                //Falta revisar que ya existe en la granja y que no sea el dueño
+                dialog.dismiss()
+            }
         }
-        //Falta revisar que ya existe en la granja y que no sea el dueño
 
-        Toast.makeText(context, "Usuario encontrado"+user.uid, Toast.LENGTH_SHORT).show()
-        return false
 
     }
 /*
