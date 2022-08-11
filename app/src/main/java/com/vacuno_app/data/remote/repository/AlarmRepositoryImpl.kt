@@ -41,7 +41,7 @@ class AlarmRepositoryImpl(
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val productionItems: List<Alarm> = snapshot.children.map { dataSnapshot ->
-                        dataSnapshot.getValue(Alarm::class.java)!!
+                        dataSnapshot.getValue(Alarm::class.java)!!.copy(id = dataSnapshot.key)
                     }
 
                     liveData.postValue(productionItems)
@@ -49,5 +49,21 @@ class AlarmRepositoryImpl(
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+    }
+
+    override fun editAlarm(a: Alarm) {
+        val idA: String = ""+a.id!!
+        a.id = null
+        alarmReference
+            .child(Constants.APP_FARM_ID)
+            .child(idA)
+            .setValue(a)
+    }
+
+    override fun deleteAlarm(id: String) {
+        alarmReference
+            .child(Constants.APP_FARM_ID)
+            .child(id)
+            .setValue(null)
     }
 }

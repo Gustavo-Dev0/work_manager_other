@@ -42,7 +42,9 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHol
     public void onBindViewHolder(@NonNull SheetAdapter.SheetViewHolder holder, int position) {
         Sheet s = list.get(position);
         holder.nameT.setText(s.getName());
-        holder.statusT.setText(s.getStatus());
+        holder.raceT.setText(s.getRace());
+        if(s.getSex().equals("H"))  holder.sexT.setText(contex.getString(R.string.female));
+        else  holder.sexT.setText(contex.getString(R.string.male));
     }
 
     @Override
@@ -51,14 +53,16 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHol
     }
 
     public static class SheetViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        TextView nameT, statusT;
+        TextView nameT, raceT, sexT;
         CardView cardView;
 
         public SheetViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameT = itemView.findViewById(R.id.nameSheetTextView);
-            statusT = itemView.findViewById(R.id.statusSheetTextView);
+            raceT = itemView.findViewById(R.id.raceSheetTextView);
+            sexT = itemView.findViewById(R.id.sexSheetTextView);
+
             cardView = itemView.findViewById(R.id.cardview_sheet);
             cardView.setOnCreateContextMenuListener(this);
 
@@ -67,44 +71,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetViewHol
         @SuppressLint("ResourceType")
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            contextMenu.add(this.getAdapterPosition(), 101, 0, "Editar");
-            if(statusT.getText().equals("Activo")){
-                contextMenu.add(this.getAdapterPosition(), 102, 0, "Inactivar");
-            }else{
-                contextMenu.add(this.getAdapterPosition(), 102, 0, "Activar");
-            }
-
-            contextMenu.add(this.getAdapterPosition(), 103, 0, "Eliminar");
-            MenuItem item = contextMenu.getItem(2);
-            SpannableString spanString = new SpannableString(item.getTitle());
-            spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0);
-            item.setTitle(spanString);
+            contextMenu.add(this.getAdapterPosition(), 101, 0, view.getContext().getString(R.string.edit));
         }
     }
-
-    /*@SuppressLint("NotifyDataSetChanged")
-    public void filtered(String txt){
-        int len = txt.length();
-        if(len == 0){
-            list.clear();
-            list.addAll(BackupList.listSheetsBackup);
-        }else{
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                List<Sheet> coll = list.stream()
-                        .filter(i -> i.getName().toLowerCase().contains(txt.toLowerCase()))
-                        .collect(Collectors.toList());
-                list.clear();
-                list.addAll(coll);
-            }else{
-                list.clear();
-                for (Service dt: BackupList.listServiceBackup) {
-                    if(dt.getName().toLowerCase().contains(txt.toLowerCase())){
-                        list.add(dt);
-                    }
-                }
-            }
-        }
-        notifyDataSetChanged();
-
-    }*/
 }

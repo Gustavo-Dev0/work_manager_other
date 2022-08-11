@@ -2,28 +2,26 @@ package com.vacuno_app.domain.model;
 
 import com.google.firebase.database.ServerValue;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Sheet {
-    public String id, code, name, race, dateBirth, father, mather, weight, age, sex, status;
+    public String id = null,
+            name = null,
+            race = null,
+            dateBirth = null,
+            father = null,
+            mather = null,
+            weight = null,
+            age = null,
+            sex = null,
+            status = null;
     public Long date;
 
     public Sheet(){}
-
-    public Sheet(String code, String name, String race, String dateBirth, String father, String mather, String weight, String age, String sex, String status) {
-        this.code = code;
-        this.name = name;
-        this.race = race;
-        this.dateBirth = dateBirth;
-        this.father = father;
-        this.mather = mather;
-        this.weight = weight;
-        this.age = age;
-        this.sex = sex;
-        this.status = status;
-    }
 
     public String getId() {
         return id;
@@ -33,12 +31,12 @@ public class Sheet {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public Long getDate() {
+        return date;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setDate(Long date) {
+        this.date = date;
     }
 
     public String getName() {
@@ -113,23 +111,20 @@ public class Sheet {
         this.status = status;
     }
 
+
     public Map<String, Object> toMap(){
         Map<String, Object> map = new HashMap<>();
         map.put("name", getName());
-        //map.put("code", getCode());
         map.put("race", getRace());
         map.put("dateBirth", getDateBirth());
         map.put("father", getFather());
         map.put("mather", getMather());
         map.put("weight", getWeight());
         map.put("age", getAge());
-        map.put("sex", "F");
+        map.put("sex", getSex());
         map.put("status", "A");
         map.put("date", ServerValue.TIMESTAMP);
         return map;
     }
 
-    public static Comparator<Sheet> serviceNameAZComparator = (u1, u2) -> u1.getName().compareTo(u2.getName());
-    public static Comparator<Sheet> serviceNameZAComparator = (u1, u2) -> u2.getName().compareTo(u1.getName());
-    public static Comparator<Sheet> serviceStatusComparator = (u1, u2) -> u1.getStatus().compareTo(u2.getStatus());
 }

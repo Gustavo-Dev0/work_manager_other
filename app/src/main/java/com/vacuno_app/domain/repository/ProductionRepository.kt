@@ -6,4 +6,6 @@ import com.vacuno_app.domain.model.Production
 interface ProductionRepository {
     fun addProduction(p: Production): MutableLiveData<Boolean>
     fun getProductionsFromFarm(_productions: MutableLiveData<List<Production>>)
+    fun editProduction(p: Production)
+    fun deleteProduction(id: String)
 }

@@ -7,4 +7,6 @@ interface AlarmRepository {
 
     fun addAlarm(a: Alarm): MutableLiveData<Boolean>
     fun getAlarmsFromFarm(liveData: MutableLiveData<List<Alarm>>)
+    fun editAlarm(a: Alarm)
+    fun deleteAlarm(id: String)
 }

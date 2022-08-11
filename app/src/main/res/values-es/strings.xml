@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VacunoApp</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">La contraseña debe tener >5 caracteres</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_login2">LoginActivity2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="heading_one">Podrás registrar usuarios</string>
+    <string name="heading_two">Podrás registrar hojas de vida</string>
+    <string name="heading_three">Podrás registrar la producción de leche</string>
+    <string name="heading_fourth">Podrás registrar fechas importantes</string>
+    <string name="heading_fifth">Sigue la cantidad de producción</string>
+
+    <string name="desc_one">Registra usuarios en tu granja como administradoes, veterinarios y trabajadores con solo su correo electrónico</string>
+    <string name="desc_two">Registra hojas de vida de tu ganado vacuno, guarda datos como fecha de nacimiento, raza, peso, edad y hasta sus padres!</string>
+    <string name="desc_three">Registra la producción de leche en litros por cada vaca y turnos, ya sea en la mañana o en la tarde.</string>
+    <string name="desc_fourth">Registra fechas importantes como la fecha de insemminacion de una vaca, o la fecha en que debe recibir una vacuna.</string>
+    <string name="desc_fifth">Realiza un seguimiento a la producción de leche totál mediante un gráfico.</string>
+
+    <string name="modules">Módulos</string>
+    <string name="users">Usuarios</string>
+    <string name="production">Produccion de leche</string>
+    <string name="sheets">Hojas de vida</string>
+    <string name="alerts">Alertas</string>
+    <string name="settings">Ajustes</string>
+    <string name="reports">Reporte de producción</string>
+
+    <string name="skip">Saltar</string>
+    <string name="back">ATRÁS</string>
+    <string name="next">SIGUIENTE</string>
+    <string name="bienvenido">Bienvenido</string>
+
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+
+    <string name="create_account_sign_up">¿Crear una cuenta? Inscribirse</string>
+    <string name="register">Inscribirse</string>
+    <string name="name">Nombre</string>
+    <string name="names">Nombres</string>
+    <string name="last_name">Apellidos</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="do_you_already_have_an_account_sign_in">Ya tienes una cuenta? Iniciar sesión</string>
+    <string name="terms_and_conditions">Términos y condiciones</string>
+    <string name="farms">Granjas</string>
+    <string name="select_your_farm_to_manage">Seleccione su granja para administrar</string>
+    <string name="add_farm">Añadir granja</string>
+    <string name="remember">Recuerda que con la versión premium podrás tener mayor cantidad de registros</string>
+    <string name="premium_version_coming_soon">Versión premium próximamente</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add_user">Añadir usuario</string>
+    <string name="list">Lista</string>
+    <string name="enter_new_user_email">Ingrese correo de nuevo usuario</string>
+    <string name="user_email">Correo de usuario</string>
+    <string name="select_role">Seleccionar rol:</string>
+    <string name="add_production">Añadir producción</string>
+    <string name="editing_role_of">Editando rol de:</string>
+    <string name="add_milk_production">Agregar producción de leche</string>
+    <string name="date_of_production">Fecha de producción</string>
+    <string name="turn">Turno:</string>
+    <string name="morning">Mañana</string>
+    <string name="afternoon">Tarde</string>
+    <string name="user">Usuario:</string>
+    <string name="select_cow">Seleccione vaca:</string>
+    <string name="total">Total</string>
+    <string name="liters">Litros</string>
+    <string name="add_resume">Agregar hoja de vida</string>
+    <string name="select_breed">Seleccionar raza:</string>
+    <string name="date_of_birth">Fecha de nacimiento</string>
+    <string name="father">Padre</string>
+    <string name="mother">Madre</string>
+    <string name="weight">Peso</string>
+    <string name="age">Edad</string>
+    <string name="sex">Sexo:</string>
+    <string name="male">Macho</string>
+    <string name="female">Hembra</string>
+    <string name="add_alert">Agregar alerta</string>
+    <string name="alert_type">Tipo de alerta</string>
+    <string name="alert_date">Fecha de alerta</string>
+    <string name="user_information">Información de usuario</string>
+    <string name="about_of">Acerca de</string>
+    <string name="vacunoapp_is_an">VacunoApp es una aplicación de gestión que permite llevar registro de datos importantes en la producción de leche, teniendo como principal característica la sincronizaciín de datos en situaciones donde no haya acceso a internet.</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="required">Campo requerido</string>
+    <string name="invalid_email">Correo inválido</string>
+    <string name="invalid_credentials">El correo electrónico o la contraseña son incorrectos.</string>
+    <string name="invalid_password_confirm">Las contraseñas no coinciden</string>
+    <string name="required_terms">Acepta los términos y condiciones</string>
+    <string name="success_registration">Registro completado</string>
+    <string name="error">Se ha producido un error</string>
+    <string name="success">Éxito</string>
+    <string name="loading">Cargando...</string>
+    <string name="limit_farms">Límite de granjas alcanzado</string>
+    <string name="limit_sheets">Límite de hojas de vida alcanzado</string>
+    <string name="limit_alarms">Límite de alertas alcanzado</string>
+    <string name="limit_productions">Límite de registros alcanzado</string>
+    <string name="limit_users">Límite de usuarios alcanzado</string>
+
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="max_50">Máximo 50 caracteres</string>
+
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="delete_alert">¿Desea eliminar la alerta?</string>
+    <string name="max_100_l">Máximo 100 litros</string>
+    <string name="first_sheet">Primero debe agregar hojas de vida</string>
+    <string name="invalid_total">Máximo 6 caracteres</string>
+    <string name="delete_production">¿Desea eliminar el registro?</string>
+    <string name="max_20">Máximo 20 caracteres</string>
+    <string name="max_1500_k">Máximo 1500 Kg</string>
+    <string name="active">Activo</string>
+    <string name="inactive">Inactivo</string>
+    <string name="change_role">Cambiar rol</string>
+    <string name="go_active">Activar</string>
+    <string name="go_inactive">Inactivar</string>
+    <string name="already_registered_user">Usuario ya está registrado en la granja</string>
+    <string name="user_not_registered">Usuario no registrado en VacunoApp</string>
+    <string name="contact">Contáctanos a: gustavo123.ght@gmail.com</string>
+
+</resources>

@@ -42,7 +42,7 @@ class ProductionRepositoryImpl(
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val productionItems: List<Production> = snapshot.children.map { dataSnapshot ->
-                        dataSnapshot.getValue(Production::class.java)!!
+                        dataSnapshot.getValue(Production::class.java)!!.copy(id=dataSnapshot.key)
                     }
 
                     liveData.postValue(productionItems)
@@ -50,5 +50,21 @@ class ProductionRepositoryImpl(
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+    }
+
+    override fun editProduction(p: Production) {
+        val idP: String = ""+p.id!!
+        p.id = null
+        productionReference
+            .child(Constants.APP_FARM_ID)
+            .child(idP)
+            .setValue(p)
+    }
+
+    override fun deleteProduction(id: String) {
+        productionReference
+            .child(Constants.APP_FARM_ID)
+            .child(id)
+            .setValue(null)
     }
 }

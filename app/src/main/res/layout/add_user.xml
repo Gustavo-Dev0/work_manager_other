@@ -21,7 +21,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ingrese correo de nuevo usuario"
+                android:text="@string/enter_new_user_email"
                 android:textColor="#0C0C0C" />
 
             <EditText
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Correo de usuario"
+                android:hint="@string/user_email"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp" />
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="0dp"
-                android:text="Seleccionar rol:"
+                android:text="@string/select_role"
                 android:textColor="#0C0C0C" />
 
             <Spinner
@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Activo" />
+                android:text="Activo"
+                android:visibility="gone" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,14 +76,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Guardar" />
+                    android:text="@string/save" />
 
                 <Button
                     android:id="@+id/addCancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Cancelar" />
+                    android:text="@string/cancel" />
             </LinearLayout>
 
         </LinearLayout>

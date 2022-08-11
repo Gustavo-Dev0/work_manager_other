@@ -2,10 +2,7 @@ package com.vacuno_app.data.remote.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.vacuno_app.data.remote.model.UserToFarm
 import com.vacuno_app.domain.model.Sheet
 import com.vacuno_app.domain.model.User
@@ -26,7 +23,9 @@ class SheetRepositoryImpl(
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val sheetItems: List<Sheet> = snapshot.children.map { dataSnapshot ->
-                        dataSnapshot.getValue(Sheet::class.java)!!
+                        val sWId = dataSnapshot.getValue(Sheet::class.java)!!
+                        sWId.setId(dataSnapshot.key)
+                        return@map sWId
                     }
 
                     liveData.postValue(sheetItems)
@@ -38,7 +37,7 @@ class SheetRepositoryImpl(
 
     override fun addSheet(s: Sheet): MutableLiveData<Boolean> {
 
-        var liveData = MutableLiveData<Boolean>(null)
+        val liveData = MutableLiveData<Boolean>(null)
 
         try {
             sheetReference
@@ -55,11 +54,13 @@ class SheetRepositoryImpl(
         return liveData
     }
 
-    override suspend fun updateSheet(s: Sheet): Boolean {
-        TODO("Not yet implemented")
+    override fun updateSheet(s: Sheet) {
+        val idS: String = ""+s.id!!
+        s.id = null
+        sheetReference
+            .child(Constants.APP_FARM_ID)
+            .child(idS)
+            .setValue(s)
     }
 
-    override suspend fun deleteSheet(s: Sheet): Boolean {
-        TODO("Not yet implemented")
-    }
 }

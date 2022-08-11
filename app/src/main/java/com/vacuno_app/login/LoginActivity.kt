@@ -1,4 +1,4 @@
-package com.vacuno_app.login;
+package com.vacuno_app.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,16 +10,15 @@ import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.database.FirebaseDatabase
-import com.vacuno_app.MainActivity
+import com.vacuno_app.R
 import com.vacuno_app.databinding.ActivityLoginBinding
+import com.vacuno_app.intro.IntroActivity
 import com.vacuno_app.register.RegisterActivity
-import com.vacuno_app.select_farm.SelectFarmActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginActivity(): AppCompatActivity() {
+class LoginActivity: AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var loginBtn: Button
@@ -30,15 +29,17 @@ class LoginActivity(): AppCompatActivity() {
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun  onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
 
+        setTheme(R.style.Theme_Vacuno_app)
+
+        super.onCreate(savedInstanceState)
 
         val binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root);
+        setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         if(viewModel.getCurrentUser() != null){
-            val intent = Intent(applicationContext, SelectFarmActivity::class.java)
+            val intent = Intent(applicationContext, IntroActivity::class.java)
             intent.putExtra("userId", viewModel.getCurrentUser()?.uid)
             startActivity(intent)
             this@LoginActivity.finish()
@@ -59,8 +60,8 @@ class LoginActivity(): AppCompatActivity() {
 
             uiModeLogin()
 
-            val email = emailET.text.toString();
-            val password = passwordET.text.toString();
+            val email = emailET.text.toString()
+            val password = passwordET.text.toString()
             viewModel.login(email, password)
         }
 
@@ -79,16 +80,16 @@ class LoginActivity(): AppCompatActivity() {
             val text = it.text.toString()
             if(text.isBlank()){
                 isValid = false
-                emailET.error = "Required"
+                emailET.error = getString(R.string.required)
             }else if(!Patterns.EMAIL_ADDRESS.matcher(text).matches()){
                 isValid = false
-                emailET.error = "Invalid email"
+                emailET.error = getString(R.string.invalid_email)
             }
         }
 
         if(passwordET.text.toString().isBlank()){
             isValid = false
-            passwordET.error = "Required"
+            passwordET.error = getString(R.string.required)
         }
 
         return isValid
@@ -116,12 +117,12 @@ class LoginActivity(): AppCompatActivity() {
             viewModel.state.collect {
                 if(it.isLoading != null && !it.isLoading!!){
                     if(it.isLogged){
-                        val intent = Intent(applicationContext, SelectFarmActivity::class.java)
+                        val intent = Intent(applicationContext, IntroActivity::class.java)
                         intent.putExtra("userId", viewModel.getCurrentUser()?.uid)
                         startActivity(intent)
                         this@LoginActivity.finish()
                     }else{
-                        Toast.makeText(applicationContext, "The email or password are incorrect.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.invalid_credentials), Toast.LENGTH_SHORT).show()
                         uiModeEdit()
                     }
                 }

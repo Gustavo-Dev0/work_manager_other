@@ -33,6 +33,8 @@ class SelectFarmActivity : AppCompatActivity() {
 
     private lateinit var currentUserId: String
 
+    private lateinit var myToast: Toast
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +51,10 @@ class SelectFarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
+        myToast = Toast.makeText(applicationContext, null, Toast.LENGTH_SHORT)
+
         val idUser: String = intent.extras?.getString("userId").toString()
-        Log.e("Usuario recibido: ", idUser+"")
+        //Log.e("Usuario recibido: ", idUser+"")
         currentUserId = idUser
 
         linearLayout = binding.farmsLinearLayout
@@ -63,7 +67,7 @@ class SelectFarmActivity : AppCompatActivity() {
                 for(fId in it){
                     createFarmTextView(fId)
                 }*/
-                Log.e("sizeList: ", ""+it.size)
+                //Log.e("sizeList: ", ""+it.size)
                 linearLayout.removeAllViews()
                 it.map { farmId ->
                     createFarmTextView(farmId)
@@ -88,13 +92,14 @@ class SelectFarmActivity : AppCompatActivity() {
                 linearLayout.removeView(fBtn)
                 fBtn.text = farm.name
                 fBtn.setOnClickListener{
-                    Log.e("Click", farm.id!!)
+                    //Log.e("Click", farm.id!!)
                     saveInSharedPreferences(farm.id!!)
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("app_farm_id", readSharedPreferences())
                     startActivity(intent)
                     this.finish()
                 }
+                fBtn.setBackgroundResource(R.drawable.rounded_borders)
                 linearLayout.addView(fBtn, 0)
             }
 
@@ -129,11 +134,22 @@ class SelectFarmActivity : AppCompatActivity() {
         addFarmPopup.findViewById<Button>(R.id.addFarmSaveButton)
             .setOnClickListener {
 
+                if(viewModel.farmsFromUser.value == null){
+                    toast(getString(R.string.loading))
+                    return@setOnClickListener
+                }
+
+                if(viewModel.farmsFromUser.value?.size!! >= Constants.MAX_FARMS){
+                    toast(getString(R.string.limit_farms))
+                    return@setOnClickListener
+                }
+
+
                 nameET = addFarmPopup.findViewById(R.id.addFarmNameEditText)
                 addFarmPB = addFarmPopup.findViewById(R.id.addFarmProgressBar)
 
                 if(nameET.text.toString().isBlank()){
-                    nameET.error = "Name required"
+                    nameET.error = getString(R.string.required)
                     return@setOnClickListener
                 }
 
@@ -162,15 +178,20 @@ class SelectFarmActivity : AppCompatActivity() {
             if(response == null) return@observe
 
             if(response){
-                Toast.makeText(this, "Added!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
 
             }else{
-                Toast.makeText(this, "An occurred an error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
             }
 
         }
 
     }
 
+    private fun toast(message: String) {
+        myToast.cancel()
+        myToast = Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT)
+        myToast.show()
+    }
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,7 +20,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar alarma"
+                android:text="@string/add_alert"
                 android:textColor="#0C0C0C" />
 
             <EditText
@@ -30,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
                 android:ems="10"
-                android:hint="Tipo de alarma"
+                android:hint="@string/alert_type"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="0dp"
-                android:text="Seleccionar vaca:"
+                android:text="@string/select_cow"
                 android:textColor="#0C0C0C" />
 
             <Spinner
@@ -57,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
                 android:ems="10"
-                android:hint="Fecha de alarma"
+                android:hint="@string/alert_date"
                 android:inputType="date"
                 android:focusable="false"
                 android:clickable="true"
@@ -78,14 +77,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Guardar" />
+                    android:text="@string/save" />
 
                 <Button
                     android:id="@+id/addAlarmCancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Cancelar" />
+                    android:text="@string/cancel" />
             </LinearLayout>
 
         </LinearLayout>

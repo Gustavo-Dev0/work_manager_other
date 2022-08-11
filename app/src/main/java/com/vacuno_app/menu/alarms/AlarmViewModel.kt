@@ -25,4 +25,12 @@ class AlarmViewModel @Inject constructor(
     fun addAlarm(a: Alarm): MutableLiveData<Boolean> {
         return repository.addAlarm(a)
     }
+
+    fun editAlarm(a: Alarm) {
+        repository.editAlarm(a)
+    }
+
+    fun alarmDeleteInFarm(id: String) {
+        repository.deleteAlarm(id)
+    }
 }

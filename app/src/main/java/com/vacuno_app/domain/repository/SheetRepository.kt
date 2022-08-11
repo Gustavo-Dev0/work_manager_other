@@ -7,6 +7,5 @@ interface SheetRepository {
 
     fun getSheetsFromFarm(liveData: MutableLiveData<List<Sheet>>)
     fun addSheet(s: Sheet): MutableLiveData<Boolean>
-    suspend fun updateSheet(s: Sheet): Boolean
-    suspend fun deleteSheet(s: Sheet): Boolean
+    fun updateSheet(s: Sheet)
 }

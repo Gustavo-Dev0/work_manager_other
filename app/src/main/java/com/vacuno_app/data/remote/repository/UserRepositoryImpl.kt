@@ -24,14 +24,16 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun getUsersFromFarm(liveData: MutableLiveData<List<User>>)  {
+    override fun getUsersFromFarm(liveData: MutableLiveData<List<User>>, liveDataFarm: MutableLiveData<List<UserToFarm>>)  {
         userReference
             .child(Constants.APP_FARM_ID)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userItems: List<UserToFarm> = snapshot.children.map { dataSnapshot ->
-                        dataSnapshot.getValue(UserToFarm::class.java)!!
+                        dataSnapshot.getValue(UserToFarm::class.java)!!.copy(key = dataSnapshot.key)
                     }
+
+                    liveDataFarm.postValue(userItems)
 
                     val users: MutableList<User> = mutableListOf()
                     for(uI in userItems){
@@ -66,7 +68,7 @@ class UserRepositoryImpl(
     fun getUserById(uid: String, users: MutableList<User>, liveData: MutableLiveData<List<User>>) {
         var user: User? = null
         userRegisteredReference.child(uid).get().addOnSuccessListener {
-            user = it.getValue(User::class.java)
+            user = it.getValue(User::class.java)?.copy(uid = uid)
             users.add(user!!)
             liveData.postValue(users)
         }.addOnFailureListener {
@@ -97,5 +99,21 @@ class UserRepositoryImpl(
     override fun addUserToFarm(uid: String, rol: String) {
         val userToFarm: UserToFarm = UserToFarm(userId = uid, status = "A", role = rol)
         userReference.child(Constants.APP_FARM_ID).push().setValue(userToFarm)
+    }
+
+    override fun setStatusUserFromFarm(uid: String, s: String) {
+        userReference
+            .child(Constants.APP_FARM_ID)
+            .child(uid)
+            .child("status")
+            .setValue(s)
+    }
+
+    override fun setRoleUserFromFarm(uid: String, newRole: String) {
+        userReference
+            .child(Constants.APP_FARM_ID)
+            .child(uid)
+            .child("role")
+            .setValue(newRole)
     }
 }

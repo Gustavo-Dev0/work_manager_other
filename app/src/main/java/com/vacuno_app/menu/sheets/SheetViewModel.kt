@@ -27,11 +27,8 @@ class SheetViewModel @Inject constructor(
         return repository.addSheet(s)
     }
 
-    suspend fun updateSheet(s: Sheet): Boolean {
+    fun updateSheet(s: Sheet) {
         return repository.updateSheet(s)
     }
 
-    suspend fun deleteSheet(s: Sheet): Boolean {
-        return repository.deleteSheet(s)
-    }
 }

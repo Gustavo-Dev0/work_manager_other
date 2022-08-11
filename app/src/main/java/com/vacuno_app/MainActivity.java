@@ -1,10 +1,12 @@
 package com.vacuno_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.vacuno_app.menu.MenuFragment;

@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.vacuno_app.R
 import com.vacuno_app.databinding.ActivityRegisterBinding
 import com.vacuno_app.domain.model.User
 import dagger.hilt.android.AndroidEntryPoint
@@ -99,12 +100,12 @@ class RegisterActivity : AppCompatActivity() {
 
         if(nameET.text.toString().isBlank()){
             isValid = false
-            nameET.error = "Name required"
+            nameET.error = getString(R.string.required)
         }
 
         if(lastNameET.text.toString().isBlank()){
             isValid = false
-            lastNameET.error = "Last name required"
+            lastNameET.error = getString(R.string.required)
         }
 
 
@@ -112,10 +113,10 @@ class RegisterActivity : AppCompatActivity() {
             val text = it.text.toString()
             if(text.isBlank()){
                 isValid = false
-                emailET.error = "Required"
+                emailET.error = getString(R.string.required)
             }else if(!Patterns.EMAIL_ADDRESS.matcher(text).matches()){
                 isValid = false
-                emailET.error = "Invalid email"
+                emailET.error = getString(R.string.invalid_email)
             }
         }
 
@@ -124,21 +125,21 @@ class RegisterActivity : AppCompatActivity() {
 
             if(text.isBlank()){
                 isValid = false
-                passwordET.error = "Required"
+                passwordET.error = getString(R.string.required)
             } else if(text.length < 6){
                 isValid = false
-                passwordET.error = "The minimum length is 6"
+                passwordET.error = getString(R.string.invalid_password)
             }
         }
 
         if(passwordConfirmET.text.toString() != passwordET.text.toString()){
             isValid = false
-            passwordConfirmET.error = "Passwords must be the same"
+            passwordConfirmET.error = getString(R.string.invalid_password_confirm)
         }
 
         if(!termsCB.isChecked){
             isValid = false
-            termsCB.error = "Accept the terms and conditions"
+            termsCB.error = getString(R.string.required_terms)
         }
 
         return isValid
@@ -150,11 +151,11 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.state.collect {
                 if(it.isLoading != null && !it.isLoading!!){
                     if(it.isRegistered){
-                        Toast.makeText(applicationContext, "Register completed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.success_registration), Toast.LENGTH_SHORT).show()
                         delay(2000)
                         this@RegisterActivity.finish()
                     }else{
-                        Toast.makeText(applicationContext, "An error has occurred", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.error), Toast.LENGTH_SHORT).show()
                         uiModeEdit()
                     }
                 }

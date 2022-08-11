@@ -11,8 +11,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +21,11 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/logoicon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -51,8 +50,52 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingBottom="16dp"
-                android:text="Information"
+                android:text="@string/user_information"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    android:id="@+id/textView83"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/names" />
+
+                <TextView
+                    android:id="@+id/nameInformationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Juan" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/last_name" />
+
+                <TextView
+                    android:id="@+id/lastNameInformationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Paredes" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Email" />
+                    android:text="@string/email" />
 
                 <TextView
                     android:id="@+id/emailInformationTextView"
@@ -76,13 +119,56 @@
                     android:text="n@com.pe" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="24dp">
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="16dp"
+                    android:text="@string/about_of"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/vacunoapp_is_an" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/contact" />
+                </LinearLayout>
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/logoutButton"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/customborder"
-                android:backgroundTint="#EA0B0B"
-                android:text="Logout" />
+                android:backgroundTint="#FF0000"
+                android:text="@string/logout"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </ScrollView>
 

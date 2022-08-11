@@ -12,8 +12,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.vacuno_app.R
 import com.vacuno_app.databinding.FragmentSettingBinding
+import com.vacuno_app.domain.model.User
 import com.vacuno_app.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -36,8 +38,22 @@ class SettingFragment : Fragment() {
         val progressBar = binding.logoutProgressBar
 
         val email = FirebaseAuth.getInstance().currentUser?.email!!
+
         binding.emailInformationTextView.text = email
 
+        val uid: String = FirebaseAuth.getInstance().currentUser?.uid!!
+
+
+        val nameET = binding.nameInformationTextView
+        val lastET = binding.lastNameInformationTextView
+
+
+        FirebaseDatabase.getInstance().getReference("users_registered").child(uid).get()
+            .addOnSuccessListener {
+                val user = it.getValue(User::class.java)?.copy(uid = uid)
+                nameET.text = user?.name
+                lastET.text = user?.lastName
+            }
 
         binding.logoutButton.setOnClickListener {
             lifecycleScope.launch {
@@ -45,15 +61,12 @@ class SettingFragment : Fragment() {
                 delay(3000)
                 viewModel.logout()
 
-
                 val sharedPref = activity?.getSharedPreferences("vacuno", 0)!!
                 with (sharedPref.edit()) {
                     remove("currentFarmId")
-                    //putString("currentFarmId", "")
+                    remove("introOpened")
                     commit()
                 }
-
-
 
                 val intent = Intent(context, LoginActivity::class.java)
                 progressBar.visibility = View.INVISIBLE

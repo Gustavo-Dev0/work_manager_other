@@ -25,4 +25,12 @@ class ProductionViewModel @Inject constructor(
         return repository.addProduction(p)
     }
 
+    fun editProduction(p: Production) {
+        repository.editProduction(p)
+    }
+
+    fun productionDeleteInFarm(id: String) {
+        repository.deleteProduction(id)
+    }
+
 }

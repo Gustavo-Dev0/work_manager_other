@@ -2,10 +2,11 @@ package com.vacuno_app.menu.production
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -20,7 +21,6 @@ import com.google.firebase.database.ValueEventListener
 import com.vacuno_app.R
 import com.vacuno_app.databinding.FragmentProductionBinding
 import com.vacuno_app.domain.model.Production
-import com.vacuno_app.domain.model.Race
 import com.vacuno_app.domain.model.Sheet
 import com.vacuno_app.menu.production.adapter.ProductionAdapter
 import com.vacuno_app.menu.production.utils.DatePickerFragment
@@ -63,14 +63,20 @@ class ProductionFragment : Fragment() {
     private lateinit var optionsCowsNames: MutableList<String>
 
     private lateinit var currentUserId: String
+    private lateinit var currentUserEmail: String
+
+    private lateinit var myToast: Toast
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         binding = FragmentProductionBinding.inflate(layoutInflater)
         val root = binding.root
+
+        myToast = Toast.makeText(context, null, Toast.LENGTH_SHORT)
 
         binding.addProductionButton.setOnClickListener {
             createAddDialog()
@@ -114,12 +120,13 @@ class ProductionFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("PRUEBA", ": $error")
+                //Log.e("PRUEBA", ": $error")
             }
         })
 
 
         currentUserId = FirebaseAuth.getInstance().currentUser?.uid!!
+        currentUserEmail = FirebaseAuth.getInstance().currentUser?.email!!
 
 
         return root
@@ -137,14 +144,57 @@ class ProductionFragment : Fragment() {
             showDatePickerDialog(addSheetPopup)
         }
 
+        addSheetPopup.findViewById<TextView>(R.id.addProductionUserTextView).text = currentUserEmail
 
         addSheetPopup.findViewById<Button>(R.id.addProductionSaveButton).setOnClickListener {
+
+
+            if(viewModel.productions.value == null){
+                toast(getString(R.string.loading))
+                return@setOnClickListener
+            }
+
+            if(viewModel.productions.value?.size!! >= Constants.MAX_PRODUCTIONS){
+                toast(getString(R.string.limit_productions))
+                return@setOnClickListener
+            }
+
+            if(listCows.size == 0){
+                toast(getString(R.string.first_sheet))
+                return@setOnClickListener
+            }
+
             turnMRB = addSheetPopup.findViewById(R.id.addMProductionRadioButton)
             turnTRB = addSheetPopup.findViewById(R.id.addTProductionRadioButton)
             dateET = addSheetPopup.findViewById(R.id.addProductionDateEditText)
             userTV = addSheetPopup.findViewById(R.id.addProductionUserTextView)
             totalET = addSheetPopup.findViewById(R.id.addProductionTotalEditText)
 
+            var isValid = true
+
+            totalET.let {
+                val text = it.text.toString()
+                if(text.isBlank()){
+                    isValid = false
+                    totalET.error = getString(R.string.required)
+                } else if (text.length > 6) {
+                    isValid = false
+                    totalET.error = getString(R.string.invalid_total)
+                } else if (text.toDouble() > 100){
+                    isValid = false
+                    totalET.error = getString(R.string.max_100_l)
+                }
+            }
+
+            dateET.let {
+                val text = it.text.toString()
+                if(text.isBlank()){
+                    isValid = false
+                    dateET.error = getString(R.string.required)
+                }
+            }
+
+            if(!isValid) return@setOnClickListener
 
             val nP = Production()
             nP.total = totalET.text.toString().toDouble()
@@ -154,9 +204,9 @@ class ProductionFragment : Fragment() {
             nP.sheetName = cowSelected.name
 
             if(turnMRB.isChecked){
-                nP.turn = "Mañana"
+                nP.turn = "M"
             }else{
-                nP.turn = "Tarde"
+                nP.turn = "T"
             }
 
             //listProductions.add(nP)
@@ -204,13 +254,182 @@ class ProductionFragment : Fragment() {
         addLiveData.observe(viewLifecycleOwner) { r ->
             if(r != null) {
                 if(r){
-                    Toast.makeText(requireContext(), "Production added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.success), Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }else{
-                    Toast.makeText(requireContext(), "Error while to adding", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error), Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun createEditDialog(p: Production){
+        aBuilder = AlertDialog.Builder(context)
+        val addSheetPopup: View = layoutInflater.inflate(R.layout.add_production, null)
+        aBuilder.setView(addSheetPopup)
+        aBuilder.setCancelable(false)
+        dialog = aBuilder.create()
+        dialog.show()
+
+        addSheetPopup.findViewById<EditText>(R.id.addProductionDateEditText).setOnClickListener {
+            showDatePickerDialog(addSheetPopup)
+        }
+
+        cowS = addSheetPopup.findViewById(R.id.addNameCowProductionSpinner)
+        optionsCowsNames.clear()
+        listCows.map { cow ->
+            optionsCowsNames.add(cow.name)
+        }
+
+        val optionsServiceAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, optionsCowsNames)
+        cowS.adapter = optionsServiceAdapter
+        cowS.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
+                cowSelected = listCows[i]
+            }
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+        }
+        var sCow = 0
+        for(i in 0 until listCows.size) {
+            if(listCows[i].id == p.sheetId){
+                sCow = i
+                break
+            }
+        }
+        cowS.setSelection(sCow)
+
+
+
+
+        turnMRB = addSheetPopup.findViewById(R.id.addMProductionRadioButton)
+        turnTRB = addSheetPopup.findViewById(R.id.addTProductionRadioButton)
+        dateET = addSheetPopup.findViewById(R.id.addProductionDateEditText)
+        userTV = addSheetPopup.findViewById(R.id.addProductionUserTextView)
+        totalET = addSheetPopup.findViewById(R.id.addProductionTotalEditText)
+
+        dateET.setText(p.dateCreated)
+        if(p.turn == "T")
+            turnTRB.isChecked = true
+        else
+            turnMRB.isChecked = true
+
+
+        totalET.setText(p.total.toString())
+
+
+        addSheetPopup.findViewById<TextView>(R.id.addProductionUserLabel).visibility = View.INVISIBLE
+        userTV.visibility = View.INVISIBLE
+
+        addSheetPopup.findViewById<Button>(R.id.addProductionSaveButton).setOnClickListener {
+
+
+            if(viewModel.productions.value == null){
+                toast(getString(R.string.loading))
+                return@setOnClickListener
+            }
+
+            if(viewModel.productions.value?.size!! >= Constants.MAX_PRODUCTIONS){
+                toast(getString(R.string.limit_productions))
+                //return@setOnClickListener
+            }else if(listCows.size == 0){
+                toast(getString(R.string.first_sheet))
+                return@setOnClickListener
+            }
+
+            var isValid = true
+
+            totalET.let {
+                val text = it.text.toString()
+                if(text.isBlank()){
+                    isValid = false
+                    totalET.error = getString(R.string.required)
+                } else if (text.length > 6) {
+                    isValid = false
+                    totalET.error = getString(R.string.invalid_total)
+                } else if (text.toDouble() > 100){
+                    isValid = false
+                    totalET.error = getString(R.string.max_100_l)
+                }
+            }
+
+            dateET.let {
+                val text = it.text.toString()
+                if(text.isBlank()){
+                    isValid = false
+                    dateET.error = "Required"
+                }
+            }
+
+            if(!isValid) return@setOnClickListener
+
+            p.total = totalET.text.toString().toDouble()
+            p.dateCreated = dateET.text.toString()
+            p.sheetId = cowSelected.id
+            p.sheetName = cowSelected.name
+
+            if(turnMRB.isChecked){
+                p.turn = "M"
+            }else{
+                p.turn = "T"
+            }
+
+            edit(p)
+        }
+
+        addSheetPopup.findViewById<Button>(R.id.addProductionCancelButton).setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+
+    }
+
+    private fun edit(p: Production) {
+        viewModel.editProduction(p)
+        dialog.dismiss()
+    }
+
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+
+        val p: Production = viewModel.productions.value?.get(item.groupId)!!
+
+        when(item.itemId) {
+            101 -> {
+                createEditDialog(p)
+            }
+
+            102 -> {
+                val alertDialogDelete: AlertDialog? = activity?.let {
+                    val builder = AlertDialog.Builder(it)
+                    builder.apply {
+                        setPositiveButton(getString(R.string.yes)) { dialog, id ->
+                            viewModel.productionDeleteInFarm(p.id!!)
+                            dialog.dismiss()
+                        }
+
+                        setNegativeButton(getString(R.string.no)) { dialog, id ->
+                            dialog.dismiss()
+                        }
+
+                        setTitle(getString(R.string.delete_production))
+                    }
+                    builder.create()
+                }
+                alertDialogDelete?.show()
+            }
+
+        }
+        //Toast.makeText(context, uF.status, Toast.LENGTH_SHORT).show()
+
+        return  super.onContextItemSelected(item)
+    }
+
+
+    private fun toast(message: String) {
+        myToast.cancel()
+        myToast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
+        myToast.show()
     }
 
 }

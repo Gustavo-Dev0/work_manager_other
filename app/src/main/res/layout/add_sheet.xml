@@ -21,7 +21,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar hoja de vida"
+                android:text="@string/add_resume"
                 android:textColor="#0C0C0C" />
 
             <EditText
@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Codigo"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/addSheetNameEditText"
@@ -38,8 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
                 android:ems="10"
-                android:hint="Nombre"
-                android:inputType="textPersonName" />
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -47,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="0dp"
-                android:text="Seleccionar raza:"
+                android:text="@string/select_breed"
                 android:textColor="#0C0C0C" />
 
             <Spinner
@@ -57,52 +59,62 @@
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="00dp"
                 android:layout_marginBottom="0dp"
-                android:layout_weight=".60" />
+                android:layout_weight=".60"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <EditText
                 android:id="@+id/addSheetDateBirthEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
+                android:clickable="true"
                 android:ems="10"
-                android:hint="Fecha de nacimiento"
-                android:inputType="textPersonName" />
+                android:hint="@string/date_of_birth"
+                android:focusable="false"
+                android:inputType="date"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/addSheetFatherEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
                 android:ems="10"
-                android:hint="Padre"
-                android:inputType="textPersonName" />
-
-
+                android:hint="@string/father"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
 
             <EditText
                 android:id="@+id/addSheetMatherEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="Correo"
                 android:ems="10"
-                android:hint="Madre"
-                android:inputType="textPersonName" />
+                android:hint="@string/mother"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="EditableContentDescCheck" />
 
             <EditText
                 android:id="@+id/addSheetWeightEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Peso"
-                android:inputType="number" />
+                android:hint="@string/weight"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                android:minHeight="48dp" />
 
             <EditText
                 android:id="@+id/addSheetAgeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Edad"
-                android:inputType="number" />
+                android:hint="@string/age"
+                android:inputType="number"
+                android:maxLength="2"
+                android:minHeight="48dp" />
 
             <TextView
                 android:id="@+id/textView"
@@ -110,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
                 android:layout_marginRight="0dp"
-                android:text="Sexo:"
+                android:text="@string/sex"
                 android:textColor="#0C0C0C" />
 
             <RadioGroup
@@ -122,13 +134,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Macho" />
+                    android:text="@string/male" />
 
                 <RadioButton
                     android:id="@+id/addHSheetRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hembra" />
+                    android:text="@string/female" />
             </RadioGroup>
 
             <CheckBox
@@ -137,7 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Activo" />
+                android:text="Activo"
+                android:visibility="gone" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -148,14 +161,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Guardar" />
+                    android:text="@string/save" />
 
                 <Button
                     android:id="@+id/addSheetCancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
-                    android:text="Cancelar" />
+                    android:text="@string/cancel" />
             </LinearLayout>
 
         </LinearLayout>
